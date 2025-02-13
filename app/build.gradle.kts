@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.minggu1pbo2"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.minggu1pbo2"
