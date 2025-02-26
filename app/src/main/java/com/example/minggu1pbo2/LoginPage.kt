@@ -1,40 +1,34 @@
 package com.example.minggu1pbo2
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.textfield.TextInputEditText
 
 class LoginPage : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_login_page)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-        // Menggunakan ID yang benar sesuai XML
         val button = findViewById<Button>(R.id.loginButton)
-        val emailtext = findViewById<EditText>(R.id.editTextEmail)
-        val passwordtext = findViewById<EditText>(R.id.editTextPassword)
+        val emailText = findViewById<TextInputEditText>(R.id.editTextEmail)
+        val passwordText = findViewById<TextInputEditText>(R.id.editTextPassword)
 
         button.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            val email = emailtext.text.toString()
-            val password = passwordtext.text.toString()
-            intent.putExtra("email", email)
-            intent.putExtra("password", password)
-            startActivity(intent)
+            val email = emailText.text.toString()
+            val password = passwordText.text.toString()
+
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("email", email)
+                intent.putExtra("password", password)
+                startActivity(intent)
+            } else {
+                emailText.error = "Email tidak boleh kosong"
+                passwordText.error = "Password tidak boleh kosong"
+            }
         }
     }
 }
